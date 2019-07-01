@@ -1,5 +1,5 @@
 # LabInfoTrabson
-Lab info homerworkerson
+Lab info homerworkerson -> Algum dia, quando eu souber mais, farei novamente isso daqui, ver as mudanças que virão com o conhecimento :V
 ## 01>
  Fazer um programa em Linguagem C para simular um sistema bancário contendo:
 

@@ -27,6 +27,8 @@ typedef struct{
     char obs[50];
 }agenda;
 agenda agendinha [100];
+agenda limpadora;
+agenda auxiliar;
 int contador=0;
 void cadastro();
 void limpabuffer(void);
@@ -34,7 +36,11 @@ void menubuscas();
 void buscapnome();
 void Buscapmes();
 void buscaptel();
+void listanome();
 void menulistagem();
+void listagem1();
+void listagem2();
+void listagem3();
 void excluir();
 int main(){
     int op;
@@ -245,7 +251,7 @@ void menubuscas(){
         break;
 
     case 4:
-        /* code */
+        listanome();
         break;    
     default:
         printf("Opção inválida\n");
@@ -294,17 +300,117 @@ void buscaptel(){
     printf("Qual telefone buscar?(xx)xxxxx-xxxx");
     scanf("\n%[^\n]s",&num);
     for(i=0;i<=contador;i++){
-        
+        if(strcmp(agendinha[i].telefone,num)==0){
+            printf("Nome:%s\nEmail:%s\nAniversário:%d/%d/%d\n",agendinha[i].nome,agendinha[i].mail,agendinha[i].aniversario.dia,agendinha[i].aniversario.mes,agendinha[i].aniversario.ano);
+            printf("Rua:%s\nNumero:%s\nBairro:%s\nCep:%s\nCidade:%s\nEstado:%s\n",agendinha[i].endereco.rua,agendinha[i].endereco.numero,agendinha[i].endereco.bairro,agendinha[i].endereco.cep,agendinha[i].endereco.cidade,agendinha[i].endereco.estado);
+            printf("Telefone:%s\n OBS:%s",agendinha[i].telefone,agendinha[i].obs);
+
+        }
     }
+    main();    
+}
+void listanome(){
+    int i,j;
+    for(i=0;i<=contador;i++){
+        for(j=i;j<=contador;j++){
+            if(strcmp(agendinha[i].nome,agendinha[j].nome)>0){
+                auxiliar=agendinha[i];
+                agendinha[i]=agendinha[j];
+                agendinha[j]=auxiliar;
+            }
+        }
 
-
-
-    
+    }
+    for(i=0;i<=contador;i++){
+        printf("%s\n",agendinha[i].nome);
+    }
+    main();
 }
 void menulistagem(){
-
+    int op;
+    printf("Opções de listagem\n1_e-mail,telefone,nome(ordem alfabetica)\n2_e-mail,telefone,nome(região)\n3-Tudo(ordem alfabetica)\n");
+    scanf("%d",&op);
+    switch (op){
+    case 1:
+        listagem1();
+        break;
+    case 2:
+       listagem2();
+        break;
+    case 3:
+        listagem3();
+        break; 
+    default:
+        printf("Op invalida\n");
+        main();
+        break;
+    }
 }
 
-void excluir(){
+void listagem1(){
+    int i,j;
+     for(i=0;i<=contador;i++){
+        for(j=i;j<=contador;j++){
+            if(strcmp(agendinha[i].nome,agendinha[j].nome)>0){
+                auxiliar=agendinha[i];
+                agendinha[i]=agendinha[j];
+                agendinha[j]=auxiliar;
+            }
+        }
 
+    }
+    for(i=0;i<=contador;i++){
+        printf("E-mail:%s\nNome:%s\nTelefone:%s",agendinha[i].mail,agendinha[1].nome,agendinha[i].telefone);
+    }
+    main();
+}
+void listagem2(){
+    int i,j;
+    for(j=1;j<28;j++){
+        for(i=0;i<=contador;i++){
+            if(agendinha[i].endereco.codestado==j){
+                printf("E-mail:%s\nNome:%s\nTelefone:%s",agendinha[i].mail,agendinha[1].nome,agendinha[i].telefone);
+
+            }
+        }
+    }
+    main();
+}
+
+void listagem3(){
+    int i,j;
+    for(i=0;i<=contador;i++){
+        for(j=i;j<=contador;j++){
+            if(strcmp(agendinha[i].nome,agendinha[j].nome)>0){
+                auxiliar=agendinha[i];
+                agendinha[i]=agendinha[j];
+                agendinha[j]=auxiliar;
+            }
+        }
+
+    }
+    for(i=0;i<=contador;i++){
+        printf("Nome:%s\nEmail:%s\nAniversário:%d/%d/%d\n",agendinha[i].nome,agendinha[i].mail,agendinha[i].aniversario.dia,agendinha[i].aniversario.mes,agendinha[i].aniversario.ano);
+        printf("Rua:%s\nNumero:%s\nBairro:%s\nCep:%s\nCidade:%s\nEstado:%s\n",agendinha[i].endereco.rua,agendinha[i].endereco.numero,agendinha[i].endereco.bairro,agendinha[i].endereco.cep,agendinha[i].endereco.cidade,agendinha[i].endereco.estado);
+        printf("Telefone:%s\n OBS:%s",agendinha[i].telefone,agendinha[i].obs);
+  
+
+    }
+    main();
+}
+void excluir(){
+    int i,j;
+    char exnamorada[50];
+    printf("Nome escolhido para sumir:");
+    scanf("\n%[^\n]s",&exnamorada);
+    for(i=0;i<=100;i++){
+        if(strcmp(exnamorada,agendinha[i].nome)){
+            agendinha[i]=limpadora;
+            for(j=1;j<100;j++){
+                agendinha[j]=agendinha[j+1];
+            }
+        }
+    }   
+    contador--; 
+    main();
 }
